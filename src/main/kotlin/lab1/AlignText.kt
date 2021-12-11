@@ -3,7 +3,8 @@ package lab1
 enum class Alignment {
     LEFT,
     RIGHT,
-    CENTER
+    CENTER,
+    JUSTIFY
 }
 
 fun alignText(
@@ -18,6 +19,7 @@ fun alignText(
         Alignment.LEFT -> alignLeft(splitText, lineWidth)
         Alignment.RIGHT -> alignRight(splitText, lineWidth)
         Alignment.CENTER -> alignCenter(splitText, lineWidth)
+        Alignment.JUSTIFY -> alignJustify(splitText, lineWidth)
     }
 }
 
@@ -26,9 +28,9 @@ fun splitText(
     lineWidth: Int
 ) : MutableList<String>{
 
-    var splitText: MutableList<String> = arrayListOf()
-    var indexSplit : Int;
-    var currentText = text;
+    val splitText: MutableList<String> = arrayListOf()
+    var indexSplit : Int
+    var currentText = text
 
     while (currentText.isNotEmpty()){
         indexSplit = currentText.indexOf('\n')
@@ -59,24 +61,76 @@ fun splitText(
     return splitText
 }
 
-private fun alignRight(alignText: MutableList<String>, lineWidth: Int) : String{
-    return alignText.joinToString(separator = "\n") {
+private fun alignRight(splitText: MutableList<String>, lineWidth: Int) : String{
+    return splitText.joinToString(separator = "\n") {
 
         it.padStart(lineWidth)
     }
 }
 
-private fun alignLeft(alignText: MutableList<String>, lineWidth: Int) : String{
-    return alignText.joinToString(separator = "\n") {
+private fun alignLeft(splitText: MutableList<String>, lineWidth: Int) : String{
+    return splitText.joinToString(separator = "\n") {
 
         it.padEnd(lineWidth)
     }
 }
 
-private fun alignCenter(alignText: MutableList<String>, lineWidth: Int) : String{
-    return alignText.joinToString(separator = "\n") {
+private fun alignCenter(splitText: MutableList<String>, lineWidth: Int) : String{
+    return splitText.joinToString(separator = "\n") {
 
         val start = lineWidth - (lineWidth - it.length) / 2
         it.padStart(start).padEnd(lineWidth)
     }
+}
+
+private fun alignJustify(splitText: MutableList<String>, lineWidth: Int): String {
+
+    val alignText: MutableList<String> = arrayListOf()
+
+    for (i in 0 until splitText.size - 1) {
+
+        val countSpaces = splitText[i].count { it == ' ' }
+        val lengthenSpaces = lengthenSpaces(lineWidth - splitText[i].length, countSpaces)
+
+        var s = ""
+        var k = 0
+
+        for (j in 0 until splitText[i].length){
+            if (splitText[i][j] == ' '){        // change simple space to lengthen
+                s += lengthenSpaces[k++]
+            }
+            else{
+                s += splitText[i][j]
+            }
+        }
+        alignText.add(s)
+    }
+    alignText.add(splitText.last())
+
+    return alignText.joinToString(separator = "\n")
+}
+
+// lengthening spaces to remove free space
+private fun lengthenSpaces(freeSpace: Int, countSpaces: Int): List<String> {
+
+    val lengthSpaces = Array(countSpaces) { 1 + freeSpace / countSpaces }
+
+    for (i in 0 until freeSpace % countSpaces){
+        lengthSpaces[i]++
+    }
+
+    val lengthenSpaces = lengthSpaces.map {
+        buildString {
+
+            var s = ""
+
+            for (i in 0 until it){
+                s += " "
+            }
+
+            append(s)
+        }
+    }
+
+    return lengthenSpaces
 }
