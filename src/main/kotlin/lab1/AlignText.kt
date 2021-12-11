@@ -12,6 +12,8 @@ fun alignText(
     lineWidth: Int = 120,
     alignment: Alignment = Alignment.LEFT
 ): String {
+    if (lineWidth < 1)
+        throw IllegalArgumentException("Incorrect line width")
 
     val splitText = splitText(text, lineWidth)
 
