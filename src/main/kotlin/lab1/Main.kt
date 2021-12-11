@@ -1,4 +1,5 @@
-import lab1.*
+import lab1.Alignment
+import lab1.alignText
 
 fun main() {
 
@@ -8,11 +9,12 @@ fun main() {
                         it was a continuation of the SALT I talks.
                     """.trimIndent()
 
-    val lineWidth = 30
+    val lineWidth = 1
 
     println("align right:\n" + alignText(s, lineWidth, Alignment.RIGHT))
     println("\nalign left:\n" + alignText(s, lineWidth, Alignment.LEFT))
     println("\nalign center:\n" + alignText(s, lineWidth, Alignment.CENTER))
     println("\nalign justify:\n" + alignText(s, lineWidth, Alignment.JUSTIFY))
     println("\nword wrapping by characters:\n" + alignText("pneumonoultramicroscopicsilicovolcanoconiosis", 10))
+
 }
