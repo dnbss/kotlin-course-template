@@ -9,7 +9,7 @@ fun main() {
                         it was a continuation of the SALT I talks.
                     """.trimIndent()
 
-    val lineWidth = 1
+    val lineWidth = 30
 
     println("align right:\n" + alignText(s, lineWidth, Alignment.RIGHT))
     println("\nalign left:\n" + alignText(s, lineWidth, Alignment.LEFT))
