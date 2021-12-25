@@ -1,6 +1,6 @@
 package lab5
 
-class LibraryServiceImpl: LibraryService {
+class LibraryServiceImpl : LibraryService {
 
     private val books: MutableSet<Book> = mutableSetOf()
     private val users: MutableSet<User> = mutableSetOf()
@@ -34,7 +34,7 @@ class LibraryServiceImpl: LibraryService {
 
     override fun findBooks(year: Int): List<Book> = books.filter { it.year == year }
 
-    override fun findBooks(genre: Genre) : List<Book> = books.filter { it.genre == genre }
+    override fun findBooks(genre: Genre): List<Book> = books.filter { it.genre == genre }
 
     override fun getAllBooks(): List<Book> = books.toList()
 
@@ -76,7 +76,7 @@ class LibraryServiceImpl: LibraryService {
         userBooks[user] = mutableSetOf()
     }
 
-    private fun isRegistered(user: User) : Boolean = users.find{ it == user } != null
+    private fun isRegistered(user: User): Boolean = users.find { it == user } != null
 
     override fun unregisterUser(user: User) {
         if (!isRegistered(user))

@@ -1,6 +1,6 @@
 package lab5
 
-fun main(){
+fun main() {
     val library = LibraryServiceImpl()
 
     val books: MutableMap<Book, Status> = mutableMapOf<Book, Status>(

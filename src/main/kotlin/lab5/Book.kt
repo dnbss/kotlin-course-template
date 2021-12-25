@@ -11,7 +11,7 @@ data class Book(val name: String, val author: List<Author>, val year: Int, val g
 
 data class Author(val firstName: String, val lastName: String)
 
-data class User (val firstName: String, val lastName: String)
+data class User(val firstName: String, val lastName: String)
 
 sealed class Status {
     object Available : Status()
