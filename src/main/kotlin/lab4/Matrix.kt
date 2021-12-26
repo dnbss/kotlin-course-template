@@ -2,18 +2,18 @@ package lab4
 
 open class Matrix(matrix: Array<Array<Double>>) {
 
-    protected var _matrix: Array<Array<Double>>
+    protected var matrix: Array<Array<Double>>
     val height: Int
-        get() = _matrix.size
+        get() = matrix.size
     val width: Int
-        get() = _matrix[0].size
+        get() = matrix[0].size
 
     init {
-        _matrix = Array(matrix.size) { Array(matrix[0].size) { 0.0 } }
+        this.matrix = Array(matrix.size) { Array(matrix[0].size) { 0.0 } }
 
         for (row in 0 until height)
             for (column in 0 until width) {
-                _matrix[row][column] = matrix[row][column]
+                this.matrix[row][column] = matrix[row][column]
             }
     }
 
@@ -27,9 +27,9 @@ open class Matrix(matrix: Array<Array<Double>>) {
 
     operator fun div(scalar: Double): Matrix = Matrix(divide(scalar))
 
-    operator fun get(row: Int, column: Int): Double = _matrix[row][column]
+    operator fun get(row: Int, column: Int): Double = matrix[row][column]
 
-    operator fun unaryMinus(): Matrix = Matrix(_matrix) * (-1.0)
+    operator fun unaryMinus(): Matrix = Matrix(matrix) * (-1.0)
 
     operator fun unaryPlus(): Matrix = this
 
@@ -44,13 +44,9 @@ open class Matrix(matrix: Array<Array<Double>>) {
 
         for (row in 0 until height)
             for (column in 0 until width)
-                if (_matrix[row][column] != otherMatrix[row, column])
+                if (matrix[row][column] != otherMatrix[row, column])
                     return false
         return true
-    }
-
-    override fun hashCode(): Int {
-        return super.hashCode()
     }
 
     override fun toString(): String {
@@ -75,7 +71,7 @@ open class Matrix(matrix: Array<Array<Double>>) {
 
         for (row in 0 until height)
             for (column in 0 until width) {
-                result[row][column] = _matrix[row][column] + other[row, column]
+                result[row][column] = matrix[row][column] + other[row, column]
             }
         return result
     }
@@ -89,7 +85,7 @@ open class Matrix(matrix: Array<Array<Double>>) {
 
         for (row in 0 until height)
             for (column in 0 until width) {
-                result[row][column] = _matrix[row][column] - other[row, column]
+                result[row][column] = matrix[row][column] - other[row, column]
             }
         return result
     }
@@ -99,7 +95,7 @@ open class Matrix(matrix: Array<Array<Double>>) {
 
         for (row in 0 until height)
             for (column in 0 until width) {
-                result[row][column] = _matrix[row][column] * scalar
+                result[row][column] = matrix[row][column] * scalar
             }
         return result
     }
@@ -113,7 +109,7 @@ open class Matrix(matrix: Array<Array<Double>>) {
         for (row in 0 until height)
             for (columns in 0 until other.width)
                 for (i in 0 until width) {
-                    result[row][columns] += _matrix[row][i] * other[i, columns]
+                    result[row][columns] += matrix[row][i] * other[i, columns]
                 }
         return result
     }
@@ -126,7 +122,7 @@ open class Matrix(matrix: Array<Array<Double>>) {
 
         for (row in 0 until height)
             for (column in 0 until width) {
-                result[row][column] = _matrix[row][column] / scalar
+                result[row][column] = matrix[row][column] / scalar
             }
         return result
     }
