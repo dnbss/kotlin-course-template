@@ -9,12 +9,12 @@ interface ShapeFactory {
     fun createRectangle(sideA: Double, sideB: Double): Rectangle
     fun createTriangle(sideA: Double, sideB: Double, sideC: Double): Triangle
 
-    fun createRandomCircle(fromRadius: Double, untilRadius: Double): Circle
-    fun createRandomSquare(fromSide: Double, untilSide: Double): Square
-    fun createRandomRectangle(fromSide: Double, untilSide: Double): Rectangle
-    fun createRandomTriangle(fromSide: Double, untilSide: Double): Triangle
+    fun createRandomCircle(fromRadius: Double = 1.0, untilRadius: Double = 5.0): Circle
+    fun createRandomSquare(fromSide: Double = 1.0, untilSide: Double = 5.0): Square
+    fun createRandomRectangle(fromSide: Double = 1.0, untilSide: Double = 5.0): Rectangle
+    fun createRandomTriangle(fromSide: Double = 3.0, untilSide: Double = 5.0): Triangle
 
-    fun createRandomShape(fromSide: Double, untilSide: Double): Shape
+    fun createRandomShape(fromSide: Double = 1.0, untilSide: Double = 5.0): Shape
 }
 
 class ShapeFactoryImpl : ShapeFactory {
@@ -52,11 +52,9 @@ class ShapeFactoryImpl : ShapeFactory {
 
         val sideA = Random.nextDouble(fromSide, untilSide)
         val sideB = Random.nextDouble(fromSide, untilSide)
-        var sideC = Random.nextDouble(fromSide, untilSide)
+        val angle = Random.nextDouble(0.1, 180.0)
 
-        while (sideA + sideB <= sideC || sideA + sideC <= sideB || sideC + sideB <= sideA) {
-            sideC = Random.nextDouble(fromSide, untilSide)
-        }
+        val sideC = kotlin.math.sqrt(sideA * sideA + sideB * sideB - 2 * sideA * sideB * kotlin.math.cos(angle))
 
         return Triangle(sideA, sideB, sideC)
     }

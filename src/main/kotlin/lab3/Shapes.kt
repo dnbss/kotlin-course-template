@@ -48,7 +48,7 @@ class Rectangle(val sideA: Double, val sideB: Double) : Shape {
 
 
 @Serializable
-class Triangle(val sideA: Double,val sideB: Double,val sideC: Double) : Shape {
+class Triangle(val sideA: Double, val sideB: Double, val sideC: Double) : Shape {
     init {
         if (sideA <= 0 || sideB <= 0 || sideC <= 0) {
             throw IllegalArgumentException("Sides must be greater than zero")
@@ -59,10 +59,11 @@ class Triangle(val sideA: Double,val sideB: Double,val sideC: Double) : Shape {
         }
     }
 
-    private val halfPerimeter = calcPerimeter() / 2
+    override fun calcArea(): Double {
+        val halfPerimeter = calcPerimeter() / 2
 
-    override fun calcArea(): Double =
-        sqrt(halfPerimeter * (halfPerimeter - sideA) * (halfPerimeter - sideB) * (halfPerimeter - sideC))
+        return sqrt(halfPerimeter * (halfPerimeter - sideA) * (halfPerimeter - sideB) * (halfPerimeter - sideC))
+    }
 
     override fun calcPerimeter(): Double = sideA + sideB + sideC
 }
