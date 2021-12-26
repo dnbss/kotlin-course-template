@@ -1,7 +1,5 @@
 package newLab5
 
-import newLab5.Book
-
 interface LibraryService {
     fun findBooks(substring: String): List<Book>
     fun findBooks(author: Author): List<Book>

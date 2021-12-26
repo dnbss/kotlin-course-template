@@ -80,7 +80,7 @@ fun main() {
     }
 }
 
-fun bookInfo(book: Book, libraryService: LibraryService){
+fun bookInfo(book: Book, libraryService: LibraryService) {
     println("Book name:${book.name}")
     book.author.forEach {
         println("Author:${it.firstName} ${it.lastName}")
