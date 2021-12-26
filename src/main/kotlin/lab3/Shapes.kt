@@ -7,51 +7,51 @@ interface Shape {
     fun calcPerimeter(): Double
 }
 
-class Circle(private val _radius: Double) : Shape {
+class Circle(val radius: Double) : Shape {
     init {
-        if (_radius <= 0)
+        if (radius <= 0)
             throw IllegalArgumentException("Radius must be greater than zero")
     }
 
-    override fun calcArea(): Double = Math.PI * _radius * _radius
+    override fun calcArea(): Double = Math.PI * radius * radius
 
-    override fun calcPerimeter(): Double = 2 * Math.PI * _radius
+    override fun calcPerimeter(): Double = 2 * Math.PI * radius
 }
 
 
-class Square(private val _side: Double) : Shape {
+class Square(val side: Double) : Shape {
     init {
-        if (_side <= 0)
+        if (side <= 0)
             throw IllegalArgumentException("Side must be greater than zero")
     }
 
-    override fun calcArea(): Double = _side * _side
+    override fun calcArea(): Double = side * side
 
-    override fun calcPerimeter(): Double = 4 * _side
+    override fun calcPerimeter(): Double = 4 * side
 
 }
 
 
-class Rectangle(private val _sideA: Double, private val _sideB: Double) : Shape {
+class Rectangle(val sideA: Double, val sideB: Double) : Shape {
     init {
-        if (_sideA <= 0 || _sideB <= 0) {
+        if (sideA <= 0 || sideB <= 0) {
             throw IllegalArgumentException("Sides must be greater than zero")
         }
     }
 
-    override fun calcArea(): Double = _sideA * _sideB
+    override fun calcArea(): Double = sideA * sideB
 
-    override fun calcPerimeter(): Double = 2 * (_sideA + _sideB)
+    override fun calcPerimeter(): Double = 2 * (sideA + sideB)
 }
 
 
-class Triangle(private val _sideA: Double, private val _sideB: Double, private val _sideC: Double) : Shape {
+class Triangle(val sideA: Double,val sideB: Double,val sideC: Double) : Shape {
     init {
-        if (_sideA <= 0 || _sideB <= 0 || _sideC <= 0) {
+        if (sideA <= 0 || sideB <= 0 || sideC <= 0) {
             throw IllegalArgumentException("Sides must be greater than zero")
         }
 
-        if (_sideA + _sideB <= _sideC || _sideA + _sideC <= _sideB || _sideC + _sideB <= _sideA) {
+        if (sideA + sideB <= sideC || sideA + sideC <= sideB || sideC + sideB <= sideA) {
             throw IllegalArgumentException("Any side must be less than the sum other two sides")
         }
     }
@@ -59,7 +59,7 @@ class Triangle(private val _sideA: Double, private val _sideB: Double, private v
     private val halfPerimeter = calcPerimeter() / 2
 
     override fun calcArea(): Double =
-        sqrt(halfPerimeter * (halfPerimeter - _sideA) * (halfPerimeter - _sideB) * (halfPerimeter - _sideC))
+        sqrt(halfPerimeter * (halfPerimeter - sideA) * (halfPerimeter - sideB) * (halfPerimeter - sideC))
 
-    override fun calcPerimeter(): Double = _sideA + _sideB + _sideC
+    override fun calcPerimeter(): Double = sideA + sideB + sideC
 }
