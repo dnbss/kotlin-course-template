@@ -1,7 +1,7 @@
 package lab6
 
-import lab3.Shape
 import lab3.Circle
+import lab3.Shape
 
 object ShapeComparators {
     val compareByArea = compareBy<Shape> { it.calcArea() }

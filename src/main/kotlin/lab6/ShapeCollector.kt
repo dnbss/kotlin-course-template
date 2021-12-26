@@ -1,7 +1,6 @@
 package lab6
 
 import lab3.Shape
-import lab3.Circle
 
 class ShapeCollector<T : Shape> {
     private val allShapes = mutableListOf<T>()
@@ -10,7 +9,7 @@ class ShapeCollector<T : Shape> {
         allShapes.add(new)
     }
 
-    fun addAll(new: List<T> ) {
+    fun addAll(new: List<T>) {
         allShapes.addAll(new)
     }
 
