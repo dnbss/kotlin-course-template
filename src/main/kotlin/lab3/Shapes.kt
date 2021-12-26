@@ -1,5 +1,6 @@
 package lab3
 
+import kotlinx.serialization.Serializable
 import kotlin.math.sqrt
 
 interface Shape {
@@ -7,6 +8,7 @@ interface Shape {
     fun calcPerimeter(): Double
 }
 
+@Serializable
 class Circle(val radius: Double) : Shape {
     init {
         if (radius <= 0)
@@ -18,7 +20,7 @@ class Circle(val radius: Double) : Shape {
     override fun calcPerimeter(): Double = 2 * Math.PI * radius
 }
 
-
+@Serializable
 class Square(val side: Double) : Shape {
     init {
         if (side <= 0)
@@ -31,7 +33,7 @@ class Square(val side: Double) : Shape {
 
 }
 
-
+@Serializable
 class Rectangle(val sideA: Double, val sideB: Double) : Shape {
     init {
         if (sideA <= 0 || sideB <= 0) {
@@ -45,6 +47,7 @@ class Rectangle(val sideA: Double, val sideB: Double) : Shape {
 }
 
 
+@Serializable
 class Triangle(val sideA: Double,val sideB: Double,val sideC: Double) : Shape {
     init {
         if (sideA <= 0 || sideB <= 0 || sideC <= 0) {

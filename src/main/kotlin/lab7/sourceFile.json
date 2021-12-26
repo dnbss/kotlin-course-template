@@ -1,0 +1,21 @@
+[
+  {
+    "type": "lab3.Circle",
+    "radius": 2.0
+  },
+  {
+    "type": "lab3.Square",
+    "side": 4.0
+  },
+  {
+    "type": "lab3.Rectangle",
+    "sideA": 2.0,
+    "sideB": 4.0
+  },
+  {
+    "type": "lab3.Triangle",
+    "sideA": 3.0,
+    "sideB": 4.0,
+    "sideC": 5.0
+  }
+]
