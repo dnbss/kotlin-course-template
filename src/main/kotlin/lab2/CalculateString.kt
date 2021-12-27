@@ -1,17 +1,17 @@
 package lab2
 
 import java.util.*
-import java.util.function.DoubleUnaryOperator
 import kotlin.math.pow
 
 
-fun tokenizeString(s: String): List<String> {
+private fun tokenizeString(s: String): List<String> {
     val tokenList: ArrayList<String> = arrayListOf()
 
     val lexemes = listOf('*', '/', '^', '-', '+', '(', ')')
 
     var i = 0
     while (i < s.length) {
+
         if (s[i].isDigit()) {
             var number = ""
 
@@ -20,25 +20,30 @@ fun tokenizeString(s: String): List<String> {
                 i++
             }
             tokenList.add(number)
+
         } else if (lexemes.contains(s[i])) {
+
             if (s[i] == '-') {
-                if (i == 0 || !s[i - 1].isDigit()) {
+                if (i == 0 || (!s[i - 1].isDigit() && s[i - 1] != ')')) {
                     tokenList.add("u-")
                 } else {
                     tokenList.add("b-")
                 }
+
             } else if (s[i] == '+') {
-                if (i == 0 || !s[i - 1].isDigit()) {
+                if (i == 0 || (!s[i - 1].isDigit() && s[i - 1] != ')')) {
                     tokenList.add("u+")
                 } else {
                     tokenList.add("b+")
                 }
+
             } else {
                 tokenList.add(s[i].toString())
             }
-            i++
-        } else {
 
+            i++
+
+        } else {
             throw Exception("Invalid character: ${s[i]} on position ${i + 1}")
         }
 
@@ -47,9 +52,9 @@ fun tokenizeString(s: String): List<String> {
     return tokenList.toList()
 }
 
-fun calculateExpression(s: String) : Int{
+fun calculateExpression(s: String): Int {
 
-    val tokenList = tokenizeString(s.trimIndent())
+    val tokenList = tokenizeString(s.replace(" ", ""))
 
     val numbers = Stack<Int>()
     val operations = Stack<String>()
@@ -72,33 +77,47 @@ fun calculateExpression(s: String) : Int{
                 continue
             }
             if (tokenList[i] == ")") {
-                while (operations.peek() != "("){
-                    calculateSubExpression(operations, numbers)
+                try {
+                    while (operations.peek() != "(") {
+                        calculateSubExpression(operations, numbers)
+                    }
+                    operations.pop()
+                } catch (e: Exception) {
+                    throw Exception("invalid expression")
                 }
-                operations.pop()
                 continue
             }
 
-            while (!operations.isEmpty() && operations.peek() != "(" &&  operatorOrder(operations.peek()) >= operatorOrder(tokenList[i])) {
+            while (!operations.isEmpty() && operations.peek() != "(" && operatorOrder(operations.peek()) >= operatorOrder(
+                    tokenList[i]
+                )
+            ) {
                 calculateSubExpression(operations, numbers)
             }
-            if (operations.isEmpty() || (!operations.isEmpty() && operations.peek() == "(") || (operatorOrder(operations.peek()) < operatorOrder(tokenList[i]))) {
+            if (operations.isEmpty() || (!operations.isEmpty() && operations.peek() == "(") || (operatorOrder(operations.peek()) < operatorOrder(
+                    tokenList[i]
+                ))
+            ) {
                 operations.push(tokenList[i])
             }
         }
     }
 
-    while (!operations.isEmpty()){
-        calculateSubExpression(operations, numbers)
+    try {
+        while (!operations.isEmpty()) {
+            calculateSubExpression(operations, numbers)
+        }
+    } catch (e: Exception) {
+        throw Exception("invalid expression")
     }
 
     return numbers.peek()
 }
 
-private fun calculateSubExpression(operations: Stack<String>, numbers : Stack<Int>){
+private fun calculateSubExpression(operations: Stack<String>, numbers: Stack<Int>) {
     val operator = operations.pop()
 
-    if (operator.contains("u")){
+    if (operator.contains("u")) {
         numbers.push(calculateUnaryOperation(numbers.pop(), operator))
     } else {
         val secondNumber = numbers.pop()
@@ -108,7 +127,7 @@ private fun calculateSubExpression(operations: Stack<String>, numbers : Stack<In
     }
 }
 
-private fun calculateUnaryOperation(x: Int, unaryOperator: String) : Int {
+private fun calculateUnaryOperation(x: Int, unaryOperator: String): Int {
     return when (unaryOperator) {
         "u-" -> -x
         "u+" -> x
@@ -116,7 +135,7 @@ private fun calculateUnaryOperation(x: Int, unaryOperator: String) : Int {
     }
 }
 
-private fun calculateBinaryOperation(x: Int, y : Int, binaryOperator: String) : Int{
+private fun calculateBinaryOperation(x: Int, y: Int, binaryOperator: String): Int {
     return when (binaryOperator) {
         "b+" -> x + y
         "b-" -> x - y
@@ -133,8 +152,8 @@ private fun operatorOrder(s: String): Int {
         "b-" -> 1
         "*" -> 2
         "/" -> 2
-        "u-" -> 2
-        "u+" -> 2
+        "u-" -> 4
+        "u+" -> 4
         "^" -> 3
         else -> throw Exception("Invalid token $s")
     }

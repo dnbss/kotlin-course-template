@@ -1,3 +1,4 @@
+/*
 import lab3.Circle
 import lab3.Rectangle
 import lab3.Square
@@ -144,4 +145,4 @@ class ShapeSerializerTests {
             0.1
         )
     }
-}
+}*/

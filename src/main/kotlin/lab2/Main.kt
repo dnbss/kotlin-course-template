@@ -1,12 +1,13 @@
 package lab2
 
-fun main(){
-    val s = "-(-100-10)/2*3^(1)".replace(" ","")
+fun main() {
+    val s = listOf<String>(
 
-    val t = tokenizeString(s)
-    t.forEach{println(it)}
+        "5^-(1 + 2^3)"
+    )
 
-    val f = calculateExpression(s)
-    println(f)
 
+    s.forEach{
+        println("$it = ${calculateExpression(it)}")
+    }
 }
