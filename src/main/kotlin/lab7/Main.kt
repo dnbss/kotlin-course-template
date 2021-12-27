@@ -11,18 +11,19 @@ fun main() {
 
     val shapeFactory = ShapeFactoryImpl()
 
-    val decodedListOfShapes = ShapeSerializer.decode<MutableList<Shape>>(FileIO.fileReader(sourcePath))
+    val shapeSerializer = ShapeSerializer<Shape>()
 
-    decodedListOfShapes.addAll(
+    val decodedListOfShapes = shapeSerializer.decode(FileIO.fileReader(sourcePath))
+
+    decodedListOfShapes.toMutableList().addAll(
         mutableListOf(
             shapeFactory.createCircle(10.0),
             shapeFactory.createSquare(20.0),
         )
     )
 
-    FileIO.fileWriter(ShapeSerializer.encode(decodedListOfShapes), resultPath)
+    FileIO.fileWriter(shapeSerializer.encode(decodedListOfShapes), resultPath)
 
-    println("Source file content:\n${FileIO.fileReader(sourcePath)}")
-    println()
+    println("Source file content:\n${FileIO.fileReader(sourcePath)}\n")
     println("Result file content:\n${FileIO.fileReader(resultPath)}")
 }

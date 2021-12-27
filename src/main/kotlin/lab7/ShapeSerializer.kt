@@ -7,8 +7,9 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import lab3.*
+import kotlin.reflect.KClass
 
-object ShapeSerializer {
+class ShapeSerializer<T>{
     val json = Json {
         prettyPrint = true
 
@@ -22,7 +23,7 @@ object ShapeSerializer {
         }
     }
 
-    inline fun <reified T> encode(value: T): String = json.encodeToString(value)
+    fun encode(value: List<T>): String = json.encodeToString(value)
 
-    inline fun <reified T> decode(string: String): T = json.decodeFromString(string)
+    fun decode(string: String): List<T> = json.decodeFromString(string)
 }
